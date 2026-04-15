@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Segredo do Universo Inteligível</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--deep:#03020a;
+--mid:#0b0520;
+--purple1:#1a0a3a;
+--purple2:#2d1060;
+--accent:#c8a0e8;
+--gold:#d4a847;
+--text:#e8dff5;
+--muted:#9080b0;
+--star:#ffffff;
+}
+body{background:var(--deep);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+canvas#stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+section{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;background:radial-gradient(ellipse at 50% 40%, #2d106040 0%, #0b052010 60%, transparent 100%)}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;margin-bottom:2.5rem;opacity:0.85}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:400;line-height:1.12;color:#f0e8ff;margin-bottom:0.5rem;text-shadow:0 0 60px #9060cc40}
+.hero h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.15em;color:var(--accent)}
+.subtitle-series{font-family:'Cinzel',serif;font-size:clamp(0.7rem,2vw,0.9rem);letter-spacing:0.25em;color:var(--muted);margin-top:1.2rem;margin-bottom:3rem}
+.divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 3rem}
+.hero-tagline{font-size:clamp(1.1rem,2.5vw,1.45rem);font-style:italic;color:var(--accent);max-width:640px;line-height:1.7;margin-bottom:3.5rem;font-weight:300}
+.cta-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.cta-btn{display:inline-block;font-family:'Cinzel',serif;font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:#0b0520;background:linear-gradient(135deg,#d4a847,#c8a0e8);padding:1rem 2.8rem;text-decoration:none;border-radius:2px;transition:opacity 0.3s,transform 0.3s;}
+.cta-btn:hover{opacity:0.88;transform:translateY(-2px)}
+.cta-sub{font-size:0.8rem;color:var(--muted);letter-spacing:0.15em}
+.book-section{display:flex;flex-direction:column;align-items:center;gap:3rem;padding:6rem 2rem;max-width:900px;margin:0 auto}
+@media(min-width:680px){.book-section{flex-direction:row;align-items:flex-start;gap:4rem}}
+.book-cover-wrap{flex-shrink:0;text-align:center}
+.book-cover{width:200px;background:linear-gradient(160deg,#1a0a3a 0%,#0b0520 40%,#050210 100%);border:1px solid #3a1a6a;border-radius:3px;padding:1.5rem 1rem;box-shadow:0 20px 60px #00000080,0 0 40px #6030aa20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;min-height:280px;}
+.cover-small-text{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--muted);text-align:center}
+.cover-title{font-family:'Cinzel',serif;font-size:0.88rem;font-weight:600;color:#e8d8ff;text-align:center;line-height:1.4}
+.cover-accent{font-family:'Cormorant Garamond',serif;font-size:0.75rem;font-style:italic;color:var(--accent)}
+.cover-vol{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold)}
+.cover-star-art{color:var(--muted);font-size:1.4rem;letter-spacing:4px}
+.cover-author{font-family:'Cormorant Garamond',serif;font-size:0.78rem;color:var(--muted);font-style:italic}
+.amazon-badge{margin-top:1rem;font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7}
+.book-text h2{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:400;color:#e8d8ff;margin-bottom:1.5rem;line-height:1.3}
+.book-text p{font-size:1.12rem;line-height:1.85;color:var(--text);margin-bottom:1.2rem;font-weight:300}
+.book-text p em{color:var(--accent);font-style:italic}
+.book-text p strong{color:#f0e8ff;font-weight:400}
+.sinopse{max-width:780px;margin:0 auto;padding:5rem 2rem;text-align:center;border-top:1px solid #2a1050}
+.sinopse-title{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem}
+blockquote{font-size:clamp(1.2rem,2.5vw,1.5rem);font-style:italic;line-height:1.9;color:var(--accent);font-weight:300;margin-bottom:2rem}
+.sinopse p{font-size:1.05rem;line-height:1.9;color:var(--muted);margin-bottom:1rem}
+.author{max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center;border-top:1px solid #2a1050}
+.author-title{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--gold);margin-bottom:2rem}
+.author h3{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:400;color:#e8d8ff;margin-bottom:1rem}
+.author p{font-size:1.05rem;line-height:1.85;color:var(--muted);font-weight:300}
+.volumes{max-width:900px;margin:0 auto;padding:5rem 2rem;border-top:1px solid #2a1050}
+.volumes-title{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--gold);text-align:center;margin-bottom:3rem}
+.vol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem}
+.vol-card{border:1px solid #2a1050;border-radius:3px;padding:1.5rem;background:#0b052015;transition:border-color 0.3s,background 0.3s;position:relative;overflow:hidden;}
+.vol-card:hover{border-color:#6030aa;background:#1a0a3a30}
+.vol-card.active{border-color:var(--gold);}
+.vol-num{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-bottom:0.5rem}
+.vol-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--accent);margin-bottom:0.5rem;line-height:1.3}
+.vol-status{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em}
+.vol-card.active .vol-status{color:var(--gold)}
+.cta-final{text-align:center;padding:5rem 2rem 7rem;border-top:1px solid #2a1050}
+.cta-final p{font-size:1.15rem;font-style:italic;color:var(--muted);margin-bottom:2.5rem}
+footer{text-align:center;padding:2rem;border-top:1px solid #1a0a3a;font-size:0.75rem;color:#3a2060;letter-spacing:0.2em;font-family:'Cinzel',serif}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<section class="hero">
+  <div class="hero-eyebrow">Uma série filosófica em 4 volumes</div>
+  <h1>O Segredo do<br><em>Universo Inteligível</em></h1>
+  <div class="subtitle-series">Por Carin Corbas</div>
+  <div class="divider"></div>
+  <p class="hero-tagline">Antes da luz, havia o verbo.<br>Antes do som, havia a determinação.<br>Antes de qualquer coisa ser o que é — já era, em outro plano, articulado.</p>
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://amazon.com.br/dp/B0GX2HD34L" target="_blank">Adquirir na Amazon</a>
+    <span class="cta-sub">Volume I — O Verbo e a Forma · R$ 29,90 Kindle</span>
+  </div>
+</section>
+<div class="book-section">
+  <div class="book-cover-wrap">
+    <a href="https://amazon.com.br/dp/B0GX2HD34L" target="_blank" style="display:block;">
+      <img src="https://m.media-amazon.com/images/I/611xOUWRb-L._SY522_.jpg"
+           alt="O Segredo do Universo Inteligível — Volume I"
+           style="width:200px;border-radius:3px;box-shadow:0 20px 60px #00000080,0 0 40px #6030aa40;display:block;transition:transform 0.3s,box-shadow 0.3s;"
+           onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 30px 80px #00000099,0 0 60px #6030aa60'"
+           onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 20px 60px #00000080,0 0 40px #6030aa40'">
+    </a>
+    <div class="amazon-badge">Disponível na Amazon Kindle</div>
+  </div>
+  <div class="book-text">
+    <h2>O Verbo e a Forma</h2>
+    <p>Quatro civilizações. Nenhum contato. <em>A mesma descoberta.</em></p>
+    <p>Os sacerdotes do Egito sabiam disso. Os sumérios chamavam de <em>nam-šub</em>. Os védicos codificavam em <em>Vāk</em>. Os cabalistas inscreviam nas dobras do infinito.</p>
+    <p>A filosofia ocidental passou ao largo desse problema por três milênios — <strong>Platão, Frege, Heidegger, Wittgenstein</strong> — cada um tocou em uma de suas bordas. Nenhum entrou.</p>
+    <p><em>Este livro entra.</em></p>
+  </div>
+</div>
+<div class="sinopse">
+  <div class="sinopse-title">Sobre o livro</div>
+  <blockquote>"Não espere um manual. Espere uma investigação rigorosa sobre a pergunta mais antiga que existe: o que faz com que qualquer coisa seja — determinada, reconhecível, real."</blockquote>
+  <p>O segredo, aqui, não é algo que se esconde. É algo que só pode ser mostrado por meio de sua estrutura. E trate-a com a seriedade que ela merece.</p>
+</div>
+<div class="author">
+  <div class="author-title">A Autora</div>
+  <h3>Carin Corbas</h3>
+  <p>Filósofa independente e pesquisadora das tradições do pensamento antigo — egípcio, sumério-acadiano, védico e cabalístico. Sua obra investiga a relação entre linguagem, forma e realidade, situando as descobertas das tradições arcaicas no horizonte da filosofia contemporânea.</p>
+</div>
+<div class="volumes">
+  <div class="volumes-title">A Série Completa</div>
+  <div class="vol-grid">
+    <div class="vol-card active">
+      <div class="vol-num">Volume I</div>
+      <div class="vol-name">O Verbo e a Forma</div>
+      <div class="vol-status">✦ Disponível agora</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Volume II</div>
+      <div class="vol-name">Em breve</div>
+      <div class="vol-status">Em preparação</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Volume III</div>
+      <div class="vol-name">Em breve</div>
+      <div class="vol-status">Em preparação</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Volume IV</div>
+      <div class="vol-name">Em breve</div>
+      <div class="vol-status">Em preparação</div>
+    </div>
+  </div>
+</div>
+<div class="cta-final">
+  <p>Comece pelo Volume I. A pergunta está esperando.</p>
+  <a class="cta-btn" href="https://amazon.com.br/dp/B0GX2HD34L" target="_blank">Ler na Amazon Kindle</a>
+</div>
+<footer>© Carin Corbas · O Segredo do Universo Inteligível</footer>
+<script>
+const canvas=document.getElementById('stars');
+const ctx=canvas.getContext('2d');
+let W,H,stars=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;initStars()}
+function initStars(){stars=[];const n=Math.floor(W*H/3000);for(let i=0;i<n;i++){stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.2,a:Math.random(),speed:Math.random()*0.003+0.001,phase:Math.random()*Math.PI*2})}}
+function draw(){ctx.clearRect(0,0,W,H);const t=Date.now()*0.001;stars.forEach(s=>{const alpha=0.15+0.55*(0.5+0.5*Math.sin(t*s.speed*60+s.phase));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${alpha})`;ctx.fill()});requestAnimationFrame(draw)}
+window.addEventListener('resize',resize);resize();draw();
+</script>
+</body>
+</html>
